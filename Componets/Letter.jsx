@@ -1,7 +1,8 @@
 import React from "react";
 
-const Letter = ({ value }) => {
-  return <span>{value}</span>;
+const Letter = ({ letter }) => {
+  console.log("Rendering Letter:", letter);
+  return <span>{letter}</span>;
 };
 
 export default Letter;
