@@ -2,48 +2,22 @@ import { useState } from "react";
 
 export const useGameLogic = () => {
   const [selectedLetters, setSelectedLetters] = useState([]);
-  const [letterStatus, setLetterStatus] = useState(() => {
-    const initialStatus = {};
-    for (let i = 65; i <= 90; i++) {
-      const letter = String.fromCharCode(i);
-      initialStatus[letter] = false;
-    }
-    return initialStatus;
-  });
 
-  const LetterStatus = {
-    65: true,
-    66: false,
-    67: false,
-    68: false,
-    69: true,
-    70: false,
-    71: false,
-    72: false,
-    73: false,
-    74: false,
-    75: false,
-    76: false,
-    77: false,
-    78: false,
-    79: false,
-    80: false,
-    81: false,
-    82: false,
-    83: true,
-    84: false,
-    85: false,
-    86: false,
-    87: false,
-    88: false,
-    89: true,
-    90: false,
+  const generateLetters = () => {
+    const letterStatuses = {};
+    for (let i = 65; i < 91; i++) {
+      letterStatuses[String.fromCharCode(i)] = { status: false };
+    }
+    return letterStatuses;
   };
+  const LetterStatus1 = generateLetters();
+
+  const [letterStatus, setLetterStatus] = useState(LetterStatus1);
 
   const [solution, setSolution] = useState({
     word: "EAGLE",
     hint: "What do I bear?",
-    letterStatus: LetterStatus,
+    letterStatus: letterStatus,
   });
 
   const [score, setScore] = useState(0);
@@ -53,14 +27,16 @@ export const useGameLogic = () => {
       prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]
     );
 
-    setLetterStatus((prevStatus) => {
-      return {
-        ...prevStatus,
-        [letter]: !prevStatus[letter],
-      };
-    });
-
-    setScore((prevScore) => prevScore + 1);
+    const newLetterStatus = letterStatus;
+    newLetterStatus[letter].status = !letterStatus[letter].status;
+    newLetterStatus[letter].checked = true;
+    if (solution.word.includes(letter)) {
+      newLetterStatus[letter].checked = false;
+      setScore((prevScore) => prevScore + 1);
+    } else {
+      setScore((prevScore) => prevScore - 100);
+    }
+    setLetterStatus(newLetterStatus);
   };
 
   return {
@@ -68,6 +44,7 @@ export const useGameLogic = () => {
     letterStatus,
     solution,
     score,
+    setScore,
     handleLetterClick,
   };
 };

@@ -12,8 +12,8 @@ const Solution = ({ word, hint, letterStatus }) => {
         <p>Hint: {hint}</p>
         {wordArray.map((letter, index) => (
           <Letter
-            key={word.charCodeAt(index)}
-            letter={letterStatus[word.charCodeAt(index)] ? letter : "_"}
+            key={index}
+            letter={letterStatus[letter].status ? letter : "-"}
           />
         ))}
       </div>

@@ -9,6 +9,10 @@ const App = () => {
   const { selectedLetters, letterStatus, solution, score, handleLetterClick } =
     useGameLogic();
 
+  const LetterClick = (letter) => {
+    handleLetterClick(letter);
+  };
+
   return (
     <div>
       <h1>Hang,Me,Man Game</h1>
@@ -18,10 +22,10 @@ const App = () => {
       <Solution
         word={solution.word}
         hint={solution.hint}
-        letterStatus={solution.letterStatus}
+        letterStatus={letterStatus}
       />
 
-      <Letters letterStatus={letterStatus} />
+      <Letters LetterClick={LetterClick} letterStatus={letterStatus} />
     </div>
   );
 };

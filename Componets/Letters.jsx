@@ -1,16 +1,25 @@
 import React from "react";
-import LetterStatus from "./LetterStatus";
 import Letter from "./Letter";
 
-const Letters = ({ letterStatus }) => {
+const Letters = ({ letterStatus, LetterClick }) => {
   const lettersArray = Object.keys(letterStatus);
 
   return (
     <div>
-      <LetterStatus letterStatus={letterStatus}></LetterStatus>
-      {lettersArray.map((letter) => (
-        <Letter key={letter.charCodeAt(0)} letter={letter} />
-      ))}
+      {lettersArray.map((letter) => {
+        // const asciiValue = letter.charCodeAt(0);
+        const isLetterSelected = letterStatus[letter].status;
+        const checked = letterStatus[letter].checked;
+        return (
+          <Letter
+            key={letter}
+            letter={letter}
+            status={isLetterSelected}
+            checked={checked}
+            LetterClick={LetterClick}
+          />
+        );
+      })}
     </div>
   );
 };
