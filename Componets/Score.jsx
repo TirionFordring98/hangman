@@ -1,8 +1,8 @@
 import React from "react";
-
-const Score = ({ score }) => {
+// ScoreClass prop.
+const Score = ({ score, scoreClass }) => {
   return (
-    <div>
+    <div className={scoreClass}>
       <h2>Score: {score}</h2>
     </div>
   );

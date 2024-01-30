@@ -4,7 +4,9 @@ const Letter = ({ letter, status, checked, LetterClick }) => {
   const letterStyle = {
     display: "inline-block",
     margin: "4px",
+    border: "1px solid",
   };
+
   if (checked) {
     letterStyle.textDecoration = "line-through";
   }
