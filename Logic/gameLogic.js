@@ -25,7 +25,7 @@ export const useGameLogic = (gameKey) => {
         word: "CHAD",
         hint: "A Masculine Compliment (Adjective) and a Country's Name ",
       },
-      { word: "Alo", hint: "Wlk ..." },
+      { word: "ALO", hint: "Wlk ..." },
     ];
 
     const randomIndex = Math.floor(Math.random() * wordHintPairs.length);
@@ -38,6 +38,7 @@ export const useGameLogic = (gameKey) => {
   }
 
   const isWinner = () => {
+    console.log(solution.word);
     return solution.word
       .split("")
       .every((letter) => selectedLetters.includes(letter));
@@ -45,28 +46,28 @@ export const useGameLogic = (gameKey) => {
 
   useEffect(() => {
     if (isWinner()) {
-      console.log("Congratulations! You won!");
+      console.log("Congratulations! You won! (function");
     }
-  }, [selectedLetters, isWinner]);
+  }, [selectedLetters]);
 
   useEffect(() => {
     if (score >= 80) {
       setScoreClass("high-score");
-      console.log("Score: " + score + " is now Green");
     } else if (score >= 50 && score < 80) {
       setScoreClass("medium-score");
-      console.log("Score: " + score + " is now Orange");
     } else {
       setScoreClass("low-score");
-      console.log("Score: " + score + " is now Red");
     }
   }, [score]);
 
   useEffect(() => {
+    console.log(gameKey, score);
     if (gameKey) {
       setLetterStatus(generateLetters());
       setSolution(generateSolution());
       setScore(100);
+      setSelectedLetters([]);
+      console.log("restarting game");
     }
   }, [gameKey]);
 
@@ -84,9 +85,9 @@ export const useGameLogic = (gameKey) => {
 
     if (solution.word.includes(letter)) {
       newLetterStatus[letter].checked = false;
-      setScore((prevScore) => prevScore + 5);
+      setScore(score + 5);
     } else {
-      setScore((prevScore) => prevScore - 20);
+      setScore(score - 20);
     }
 
     setLetterStatus(newLetterStatus);

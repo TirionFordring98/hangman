@@ -12,7 +12,10 @@ const Letter = ({ letter, status, checked, LetterClick }) => {
   }
 
   return (
-    <div onClick={() => LetterClick(letter)} style={letterStyle}>
+    <div
+      onClick={status ? () => {} : () => LetterClick(letter)}
+      style={letterStyle}
+    >
       {status && !checked ? "-" : letter}
     </div>
   );

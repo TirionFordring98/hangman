@@ -20,23 +20,19 @@ const App = () => {
   } = useGameLogic(gameKey);
 
   const restartGame = () => {
-    setGameKey((prevKey) => prevKey + 1);
+    setGameKey(gameKey + 1);
   };
 
   const LetterClick = (letter) => {
     handleLetterClick(letter);
   };
 
-  if (isWinner() || score <= 0) {
-    return (
-      <div>
-        <EndGame isWinner={isWinner()} solution={solution} />
-        <button onClick={restartGame}>Restart</button>
-      </div>
-    );
-  }
-
-  return (
+  return isWinner() || score <= 0 ? (
+    <div>
+      <EndGame isWinner={isWinner()} solution={solution} />
+      <button onClick={restartGame}>Restart</button>
+    </div>
+  ) : (
     <div>
       <h1>Hang,Me,Man Game</h1>
       <h3>(this is not a joke, this is a genuine call for help)</h3>
